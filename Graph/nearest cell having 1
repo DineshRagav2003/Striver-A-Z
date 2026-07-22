@@ -1,0 +1,60 @@
+class Solution {
+    public ArrayList<ArrayList<Integer>> nearest(int[][] grid) {
+        // code here
+        int n=grid.length;
+        int m=grid[0].length;
+        //ArrayList<ArrayList<Integer>>=new ArrayList<ArrayList<Integer>>();
+        int[][] visited=new int[n][m];
+        int[][] distance=new int[n][m];
+        Queue<int[]> q=new LinkedList<>();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    visited[i][j]=1;
+                    q.add(new int[]{i,j,0});
+                }
+            }
+        }
+        
+        int[][] dir={{0,1},{1,0},{-1,0},{0,-1}};
+        
+        while(!q.isEmpty()){
+            int[] arr=q.poll();
+            int x=arr[0];
+            int y=arr[1];
+            int z=arr[2];
+            distance[x][y]=z;
+            
+            for(int i=0;i<dir.length;i++){
+                int d1=x+dir[i][0];
+                int d2=y+dir[i][1];
+                
+                if(d2>=0 && d1>=0 && d2<m && d1<n && visited[d1][d2]==0){
+                    
+                    visited[d1][d2]=1;
+                    q.add(new int[]{d1,d2,z+1});
+                    
+                }
+            }
+            
+            
+        }
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+
+        for(int i=0;i<distance.length;i++)
+        {
+            adj.add(new ArrayList<Integer>());
+        }
+        for(int i=0;i<distance.length;i++)
+        {
+            for(int j=0;j<distance[0].length;j++)
+            {
+                adj.get(i).add(distance[i][j]);
+            }
+        }
+        
+        return adj;
+        
+        
+    }
+}
