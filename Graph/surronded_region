@@ -1,0 +1,51 @@
+bfs:
+class Solution {
+    public void solve(char[][] board) {
+        int n=board.length;
+        int m=board[0].length;
+        Queue<int[]> q=new LinkedList<>();
+       // int[][] v=new int[n][m];
+        
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                    if(board[i][j]=='O'){
+                        if(i==0 || i==n-1 ||j==0|| j==m-1){
+                        q.add(new int[]{i,j});
+
+                    }else if(board[i][j]=='O'){
+                        board[i][j]='-';
+                    }
+                }
+            }
+        }
+        int[][] dis={{0,1},{1,0},{0,-1},{-1,0}};
+
+        while(!q.isEmpty()){
+            int ans[]=q.poll();
+            int x=ans[0];
+            int y=ans[1];
+            for(int i=0;i<4;i++){
+                int a1=x+dis[i][0];
+                int a2=y+dis[i][1];
+                if(a1>=0 && a1<n && a2>=0 && a2<m && board[a1][a2]=='-'){
+                    board[a1][a2]='O';
+                    q.add(new int[]{a1,a2});
+                }
+            }
+
+
+
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(board[i][j]=='-'){
+                    board[i][j]='X';
+                }
+            }
+        }
+        return;
+
+        
+    }
+}
