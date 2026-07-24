@@ -1,0 +1,51 @@
+bfs:
+class Solution {
+    public int numEnclaves(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+        Queue<int []> q=new LinkedList<>();
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    if(i==0 || j==0 || i==n-1||j==m-1){
+                        q.add(new int[] {i,j});
+
+                    }else {
+                    System.out.println(1);
+                    grid[i][j]=99;
+                    }
+
+                }
+            }
+        }  
+
+        int[][] dis={{0,1},{1,0},{0,-1},{-1,0}};
+
+        while(!q.isEmpty()){
+            int[] ans=q.poll();
+            int x=ans[0];
+            int y=ans[1];
+            for(int i=0;i<4;i++){
+                int a1=x+dis[i][0];
+                int a2=y+dis[i][1];
+                if(a1>=0 && a2>=0 && a1<n && a2<m && grid[a1][a2]==99){
+                    grid[a1][a2]=1;
+                    q.add(new int[]{a1,a2});
+
+                }
+            }
+
+        }
+int count=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==99){
+                    System.out.println(grid[i][j]);
+                    count++;
+                }
+            }
+        } 
+        return count;     
+    }
+}
